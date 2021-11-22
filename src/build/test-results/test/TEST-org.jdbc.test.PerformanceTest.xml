@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jdbc.test.PerformanceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-11-04T07:04:10" hostname="yulia-Latitude-E7450" time="10.171">
+  <properties/>
+  <testcase name="test(String, String, String, String, String, String, String, int)[1]" classname="org.jdbc.test.PerformanceTest" time="5.322"/>
+  <testcase name="test(String, String, String, String, String, String, String, int)[2]" classname="org.jdbc.test.PerformanceTest" time="4.593"/>
+  <testcase name="test(String, String, String, String, String, String, String, int)[3]" classname="org.jdbc.test.PerformanceTest" time="0.135"/>
+  <testcase name="test(String, String, String, String, String, String, String, int)[4]" classname="org.jdbc.test.PerformanceTest" time="0.109"/>
+  <system-out><![CDATA[postgresql/insert/1K, 4622
+postgresql/insert-pk/1K, 4471
+postgresql/insert/1K, 71
+postgresql/insert-pk/1K, 38
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
