@@ -26,8 +26,8 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-core', version: '3.0.0'
     testImplementation 'org.awaitility:awaitility:4.0.1'
 
-    testImplementation group: 'org.postgresql', name: 'postgresql', version: '42.2.16'
-    testImplementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.21'
+    testCompile group: 'org.postgresql', name: 'postgresql', version: '42.2.16'
+    testCompile group: 'mysql', name: 'mysql-connector-java', version: '8.0.21'
 
     
     testCompileOnly(

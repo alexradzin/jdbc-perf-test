@@ -16,6 +16,9 @@ import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 
 abstract class BasePerformanceTestCase {
+    enum Mode {
+        FILE, STREAM
+    }
     private final Random random = new Random(System.currentTimeMillis());
 
     protected Properties getProperties(String db) throws IOException {
@@ -42,6 +45,26 @@ abstract class BasePerformanceTestCase {
         file.delete();
         return loaded;
     }
+
+    protected int load(int nLines, String table, Connection connection, String loadCommand, String db) throws IOException, SQLException {
+        Object[][] args = data(nLines);
+        String[] header = new String[] {"id", "label", "text"};
+
+        JdbcRunner runner;
+        switch (db) {
+            case "mysql":
+                runner = new MySqlStreamInputStreamJdbcRunner(connection, Template.replace(loadCommand, stringToProperties(format("TMP-TABLE=%s; FILE=%s", table, "inputStreamPlaceHolder"))), header);
+                break;
+
+            case "postgresql":
+                runner = new PostgreSqlStreamInputStreamJdbcRunner(connection, Template.replace(loadCommand, stringToProperties(format("TMP-TABLE=%s; FILE=%s", table, "STDIN"))).replace("'STDIN'", "STDIN"), header);
+                break;
+            default: throw new IllegalArgumentException(db);
+        }
+
+        return new TimeMeasuringJdbcRunner(runner).execute(args);
+    }
+
 
     protected JdbcRunner createRunner(Class<? extends JdbcRunner> runnerClass, Connection connection, String sql) throws ReflectiveOperationException {
         return runnerClass.getConstructor(Connection.class, String.class).newInstance(connection, sql);
